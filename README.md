@@ -7,7 +7,7 @@ Take a look at the [github wiki](https://github.com/SonnyFishback/tbd-hackathon-
 
 The project officially starts development Saturday 02/24/2024 @10 AM EST and will is expected to be ready to demo by Sunday 02/25/2024 @2 PM EST. In the meantime, feel free to push up boilerplate code.
 
-Additional Information:
+### Additional Information:
 
 [Last year's winners](https://www.tampadevs.com/blog/2022/20221016-tadhacks-tampa-winners/)
 

@@ -10,6 +10,7 @@ The project officially starts development Saturday 02/24/2024 @10 AM EST and wil
 Additional Information:
 
 [Last year's winners](https://www.tampadevs.com/blog/2022/20221016-tadhacks-tampa-winners/)
+
 [TBD Hackathon FQA Page](https://www.tampadevs.com/blog/2022/20221014-tadhacks-faq/)
 
 

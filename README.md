@@ -1,11 +1,11 @@
 # Getting started:
-Not much to get started on.
+Not much to get started on code wise. You can help sure up feature stories and planning though! 🆘
 
-We are waiting until the project officially starts to develop any features. For now, here are the prerequisites for contributors and some links to the documentation for the technologies/tooling we will build our project with.
+We are waiting until the project officially starts to develop any features ⏳. For now, here are the prerequisites for contributors and some links to the documentation for the technologies/tooling we will build our project with.
 
 Take a look at the [github wiki](https://github.com/SonnyFishback/tbd-hackathon-2024/wiki) and [related github projects](https://github.com/SonnyFishback/tbd-hackathon-2024/projects?query=is%3Aopen) for further documentation.
 
-The project officially starts development Saturday 02/24/2024 @10 AM EST and will is expected to be ready to demo by Sunday 02/25/2024 @2 PM EST. In the meantime, feel free to push up boilerplate code.
+The project officially starts development Saturday 02/24/2024 @10 AM EST and will is expected to be ready to demo by Sunday 02/25/2024 @2 PM EST 🤯. In the meantime, feel free to push up boilerplate code. 
 
 Additional Information:
 

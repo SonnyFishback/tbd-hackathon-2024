@@ -10,6 +10,8 @@ Not much to get started on code wise. You can help sure up feature stories and p
 
 #### 3. [Open AI API Tutorial](https://www.youtube.com/watch?v=GizsSo-EevA)
 
+--- More Advanced ---
+
 #### 4. [Open AI API Assistants](https://www.youtube.com/watch?v=qHPonmSX4Ms&pp=ygULb3BlbiBhaSBhcGk%3D)
 
 #### 5. [Connect Open AI GPT 3 to Database](https://www.youtube.com/watch?v=N4nX_rTwKx4)

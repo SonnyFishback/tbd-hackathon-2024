@@ -21,7 +21,9 @@ Not much to get started on code wise. You can help sure up feature stories and p
 ### Learning for future iterations 🔮:
 
 [To fine tune or not fine tune](https://www.youtube.com/watch?v=jd7h2vm7SFw)
+
 [What is RAG](https://www.youtube.com/watch?v=T-D1OfcDW1M)
+
 [A better way to validate and query Question & Answer content: Vector Search w/ LLM](https://www.youtube.com/watch?v=JEBDfGqrAUA)
 
 ---

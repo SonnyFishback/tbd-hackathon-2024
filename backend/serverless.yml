@@ -1,0 +1,15 @@
+service: 'cornerstone-${env:ENVIRONMENT}'
+
+frameworkVersion: '3'
+configValidationMode: 'error'
+deprecationNotificationMode: 'warn:summary'
+useDotenv: true
+
+provider:
+  name: 'aws'
+  runtime: 'nodejs20.x'
+  profile: '${env:ENVIRONMENT}' # AWS CLI Profile - Unique to my machine. 
+  disableRollback: true # If the deployment fails, don't rollback to save dev time. | Set false for production.
+
+plugins:
+  - 'serverless-esbuild'

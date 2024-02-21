@@ -7,6 +7,8 @@ aggregate, validate and consume job related data on the web.
 
 We'd only run these processes to run at a scheduled time or when triggered by PUB/SUB, Queues or RSS Feeds. This is where the serverless framework comes in handy.
 
+I created [a repository walking on getting started with the serverless framework.](https://github.com/SonnyFishback/introduction-to-serverless-framework) Take a look if you are interested.
+
 ## Requirements:
 
 - Serverless Framework

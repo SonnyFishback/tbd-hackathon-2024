@@ -43,7 +43,7 @@ The project officially starts development Saturday 02/24/2024 @10 AM EST and wil
 ## Prerequisites
 
 - A Computer.
-- Node.js. @20
+- Node.js. @18
 - Vercel organization credentials.
 - Supabase organization credentials.
 

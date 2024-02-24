@@ -22,6 +22,7 @@ model User {
   submissions InterviewSubmission[]
   interviews  Interview[]
   xp          Int                   @default(0)
+  oauthID     String?
   // badges String[]
   // accomplishments String[]
 }
@@ -31,30 +32,30 @@ model Interview {
   questions   Question[]
   submissions InterviewSubmission[]
   owner       User                  @relation(fields: [ownerID], references: [id])
-  ownerID     String @db.Uuid
+  ownerID     String                @db.Uuid
 }
 
 model Question {
   id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   type        String
   interview   Interview @relation(fields: [interviewID], references: [id])
-  interviewID String @db.Uuid
+  interviewID String    @db.Uuid
   asnwers     Answer[]
 }
 
 model Answer {
   id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   question   Question @relation(fields: [questionID], references: [id])
-  questionID String @db.Uuid
+  questionID String   @db.Uuid
   text       String
 }
 
 model InterviewSubmission {
   id            String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   interviewee   User      @relation(fields: [intervieweeID], references: [id])
-  intervieweeID String @db.Uuid
+  intervieweeID String    @db.Uuid
   interview     Interview @relation(fields: [interviewID], references: [id])
-  interviewID   String @db.Uuid
+  interviewID   String    @db.Uuid
   answers       String[]
   // results String
 }

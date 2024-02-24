@@ -1,6 +1,0 @@
-{
-	"dependencies": {
-		"@supabase/auth-helpers-sveltekit": "^0.12.0",
-		"@supabase/supabase-js": "^2.39.7"
-	}
-}

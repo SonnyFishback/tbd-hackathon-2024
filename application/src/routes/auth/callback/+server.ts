@@ -1,11 +1,17 @@
 import { redirect } from '@sveltejs/kit'
 
-export const GET = async ({ url, locals: { supabase } }) => {
+export const GET = async ({ url, locals: { supabase, getSession } }) => {
   const code = url.searchParams.get('code')
 
   if (code) {
     await supabase.auth.exchangeCodeForSession(code)
   }
-  console.log("CALLBACK")
-  throw redirect(303, '/')
+  
+  const session = await getSession()
+
+  if(!session) 
+  {
+    return redirect(303, '/')
+  }
+
 }

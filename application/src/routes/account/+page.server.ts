@@ -11,10 +11,15 @@ export const load = (async ({ locals }) => {
         return redirect(303, '/');
     }
 
-    const user = session.user;
+
+    const user = await prisma.user.findUnique({
+        where: {
+            id: session.user.id
+        }
+    })
 
     return {
-        user: session.user
+        user
     };
 }) satisfies PageServerLoad;
 

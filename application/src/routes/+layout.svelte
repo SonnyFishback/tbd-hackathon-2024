@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { ModeWatcher } from "mode-watcher";
 	import '../app.pcss';
 	import { Button } from '$lib/components/ui/button';
 	import { invalidate } from '$app/navigation';
@@ -24,6 +25,7 @@
 	});
 </script>
 
+<ModeWatcher />
 <header>
 	{#if data.session}
 		<form method="POST" action="/account?/logout" use:enhance>
@@ -36,5 +38,6 @@
 		</form>
 	{/if}
 </header>
+<slot />
 
 <main id="main"><slot /></main>

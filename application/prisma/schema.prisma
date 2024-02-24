@@ -18,11 +18,12 @@ model User {
   username    String                @unique
   email       String                @unique
   password    String
+  avatar      String
+  name        String
   // invitations Invitation[]
   submissions InterviewSubmission[]
   interviews  Interview[]
   xp          Int                   @default(0)
-  oauthID     String?
   // badges String[]
   // accomplishments String[]
 }

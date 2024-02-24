@@ -6,14 +6,18 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+  schemas   = ["public", "auth"]
 }
 
 model User {
+  @@schema("auth") 
   id          String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   username    String                @unique
   email       String                @unique
@@ -29,6 +33,7 @@ model User {
 }
 
 model Interview {
+  @@schema("public")
   id          String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   questions   Question[]
   submissions InterviewSubmission[]
@@ -37,6 +42,7 @@ model Interview {
 }
 
 model Question {
+  @@schema("public")
   id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   type        String
   interview   Interview @relation(fields: [interviewID], references: [id])
@@ -45,6 +51,7 @@ model Question {
 }
 
 model Answer {
+  @@schema("public")
   id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   question   Question @relation(fields: [questionID], references: [id])
   questionID String   @db.Uuid
@@ -52,6 +59,7 @@ model Answer {
 }
 
 model InterviewSubmission {
+  @@schema("public")
   id            String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   interviewee   User      @relation(fields: [intervieweeID], references: [id])
   intervieweeID String    @db.Uuid

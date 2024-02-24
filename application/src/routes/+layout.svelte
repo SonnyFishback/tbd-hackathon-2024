@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { ModeWatcher } from "mode-watcher";
 	import '../app.pcss';
-	import { Button } from '$lib/components/ui/button';
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import type { LayoutData } from './$types';
-	import { enhance } from '$app/forms';
+
+	import Header from '$lib/components/ui/header/Header.svelte';
 
 	export let data: LayoutData;
 
@@ -26,18 +26,5 @@
 </script>
 
 <ModeWatcher />
-<header>
-	{#if data.session}
-		<form method="POST" action="/account?/logout" use:enhance>
-			<Button type="submit">Logout</Button>
-		</form>
-	{:else}
-		<form method="POST" action="/account?/login" use:enhance>
-			<Button type="submit" name="provider" value="google">Login With google</Button>
-			<Button type="submit" name="provider" value="linkedin_oidc">Login with LinkedIN</Button>
-		</form>
-	{/if}
-</header>
-<slot />
-
+<Header session={data.session} />
 <main id="main"><slot /></main>

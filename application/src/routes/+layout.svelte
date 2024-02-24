@@ -4,6 +4,7 @@
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import type { LayoutData } from './$types';
+	import { enhance } from '$app/forms';
 
 	export let data: LayoutData;
 
@@ -24,22 +25,16 @@
 </script>
 
 <header>
-	<Button
-		on:click={() =>
-			supabase.auth.signInWithOAuth({
-				provider: 'google'
-			})}>Login With google</Button
-	>
-	<Button
-		on:click={() =>
-			supabase.auth.signInWithOAuth({
-				provider: 'linkedin_oidc'
-			}).then(data => {
-				console.log(data)
-			})}
-	>
-		Login with LinkedIN
-	</Button>
+	{#if data.session}
+		<form method="POST" action="/account?/logout" use:enhance>
+			<Button type="submit">Logout</Button>
+		</form>
+	{:else}
+		<form method="POST" action="/account?/login" use:enhance>
+			<Button type="submit" name="provider" value="google">Login With google</Button>
+			<Button type="submit" name="provider" value="linkedin_oidc">Login with LinkedIN</Button>
+		</form>
+	{/if}
 </header>
 
 <main id="main"><slot /></main>

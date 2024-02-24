@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { ModeWatcher } from "mode-watcher";
 	import '../app.pcss';
 	import { Button } from '$lib/components/ui/button';
 	import { invalidate } from '$app/navigation';
@@ -23,6 +24,7 @@
 	});
 </script>
 
+<ModeWatcher />
 <header>
 	<Button
 		on:click={() =>
@@ -41,6 +43,7 @@
 		Login with LinkedIN
 	</Button>
 </header>
+<slot />
 
 {JSON.stringify(data)}
 <main id="main"><slot /></main>

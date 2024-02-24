@@ -27,12 +27,6 @@
     import { zodClient } from "sveltekit-superforms/adapters";
     
     export let data: SuperValidated<Infer<FormSchema>>;
-    
-    const form = superForm(data, {
-        validators: zodClient(formSchema),
-    });
-    
-    const { form: formData, enhance } = form;
 
 </script>
 
@@ -318,50 +312,6 @@
                                 </Card.Header>
                                 <Card.Content class="space-y-2">
                                   <div class="space-y-1">
-                                    <form method="POST" use:enhance>
-                                        <Form.Field {form} name="username">
-                                            <Form.Control let:attrs>
-                                              <Form.Label>Job Description</Form.Label>
-                                              <Textarea {...attrs} bind:value={$formData.username} />
-                                            </Form.Control>
-                                            <Form.Control let:attrs>
-                                              <Form.Label>Strength</Form.Label>
-
-                                              <RadioGroup.Root value="comfortable">
-                                                <div class="flex items-center space-x-2">
-                                                  <RadioGroup.Item value="default" id="r1" />
-                                                  <Label for="r1">Default</Label>
-                                                </div>
-                                                <div class="flex items-center space-x-2">
-                                                  <RadioGroup.Item value="comfortable" id="r2" />
-                                                  <Label for="r2">Comfortable</Label>
-                                                </div>
-                                                <div class="flex items-center space-x-2">
-                                                  <RadioGroup.Item value="compact" id="r3" />
-                                                  <Label for="r3">Compact</Label>
-                                                </div>
-                                                <RadioGroup.Input name="spacing" />
-                                              </RadioGroup.Root>
-                                            </Form.Control>
-                                            <Form.Control let:attrs>
-                                              <Form.Label>Preferred Skills</Form.Label>
-                                              <Input {...attrs} bind:value={$formData.username} />
-                                              <Badge>React</Badge>
-                                              <Badge>Node</Badge>
-                                              <Badge>Express</Badge>
-                                              <Badge>Python</Badge>
-                                              <Badge>MongoDB</Badge>
-                                            </Form.Control>
-                                            <br>
-                                            <Form.Control let:attrs>
-                                              <Form.Label>Years of Experience</Form.Label>
-                                              <Input {...attrs} bind:value={$formData.username} />
-                                            </Form.Control>
-                                          <Form.Description>This is your advanced specifications.</Form.Description>
-                                          <Form.FieldErrors />
-                                        </Form.Field>
-                                        <Form.Button>Submit</Form.Button>
-                                      </form>
                                   </div>
                                 </Card.Content>
                                 <!-- <Card.Footer>

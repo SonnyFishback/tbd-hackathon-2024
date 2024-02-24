@@ -49,8 +49,9 @@
 	"dependencies": {
 		"clsx": "^2.1.0",
 		"lucide-svelte": "^0.338.0",
+		"openai": "4.0.0",
+		"prisma": "^5.10.2",
 		"tailwind-merge": "^2.2.1",
-		"tailwind-variants": "^0.2.0",
-		"prisma": "^5.10.2"
+		"tailwind-variants": "^0.2.0"
 	}
 }

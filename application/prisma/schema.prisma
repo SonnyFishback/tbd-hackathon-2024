@@ -5,7 +5,7 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["multiSchema"]
 }
 
@@ -17,7 +17,6 @@ datasource db {
 }
 
 model User {
-  @@schema("auth") 
   id          String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   username    String                @unique
   email       String                @unique
@@ -28,38 +27,42 @@ model User {
   submissions InterviewSubmission[]
   interviews  Interview[]
   xp          Int                   @default(0)
+
   // badges String[]
   // accomplishments String[]
+  @@schema("auth")
 }
 
 model Interview {
-  @@schema("public")
   id          String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   questions   Question[]
   submissions InterviewSubmission[]
   owner       User                  @relation(fields: [ownerID], references: [id])
   ownerID     String                @db.Uuid
+
+  @@schema("public")
 }
 
 model Question {
-  @@schema("public")
   id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   type        String
   interview   Interview @relation(fields: [interviewID], references: [id])
   interviewID String    @db.Uuid
   asnwers     Answer[]
+
+  @@schema("public")
 }
 
 model Answer {
-  @@schema("public")
   id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   question   Question @relation(fields: [questionID], references: [id])
   questionID String   @db.Uuid
   text       String
+
+  @@schema("public")
 }
 
 model InterviewSubmission {
-  @@schema("public")
   id            String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   interviewee   User      @relation(fields: [intervieweeID], references: [id])
   intervieweeID String    @db.Uuid
@@ -67,6 +70,8 @@ model InterviewSubmission {
   interviewID   String    @db.Uuid
   answers       String[]
   // results String
+
+  @@schema("public")
 }
 
 // model Invitation {

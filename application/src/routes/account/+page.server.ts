@@ -1,4 +1,4 @@
-import { fail, redirect } from '@sveltejs/kit';
+import { error, fail, redirect } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma';
 
 import type { PageServerLoad } from './$types';
@@ -18,6 +18,9 @@ export const load = (async ({ locals }) => {
         }
     })
 
+    if(!user) {
+        return error(500, "I Definitly messed something up")
+    }
     return {
         user
     };
@@ -25,7 +28,7 @@ export const load = (async ({ locals }) => {
 
 export const actions = {
     login: async ({ request, locals: { supabase }, url }) => {
-  
+
         const formData = await request.formData()
         const provider = formData.get('provider')
         if (!provider || (provider !== 'google' && provider !== 'linkedin_oidc')) {
@@ -40,20 +43,23 @@ export const actions = {
         })
 
 
-        if(response.error) {
-            return fail(500, { message: 'Server error. Try again later.', success: false})
+        if (response.error) {
+            return fail(500, { message: 'Server error. Try again later.', success: false })
         }
 
         throw redirect(303, response.data.url);
+
     },
 
     logout: async ({ locals: { supabase } }) => {
-        const {error} = await supabase.auth.signOut();
-        if(error) {
-            return fail(500, { message: 'Server error. Try again later.', success: false})
+        console.log("logout")
+        const { error } = await supabase.auth.signOut();
+        if (error) {
+            console.error(error)
+            return fail(500, { message: 'Server error. Try again later.', success: false })
         }
-          
-              return {
+
+        return {
             message: 'You have been logged out',
             success: true,
         }

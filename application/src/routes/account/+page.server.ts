@@ -24,7 +24,7 @@ export const load = (async ({ locals }) => {
 }) satisfies PageServerLoad;
 
 export const actions = {
-    login: async ({ request, locals: { supabase } }) => {
+    login: async ({ request, locals: { supabase }, url }) => {
   
         const formData = await request.formData()
         const provider = formData.get('provider')
@@ -32,9 +32,11 @@ export const actions = {
             return fail(400, { message: 'Unknown Provider', success: false, })
         }
 
-    
         const response = await supabase.auth.signInWithOAuth({
-            provider
+            provider,
+            options: {
+                redirectTo: `${url.origin}/auth/callback`
+            }
         })
 
 

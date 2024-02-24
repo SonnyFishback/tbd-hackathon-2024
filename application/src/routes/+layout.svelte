@@ -42,5 +42,4 @@
 	</Button>
 </header>
 
-{JSON.stringify(data)}
 <main id="main"><slot /></main>

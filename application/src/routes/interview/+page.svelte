@@ -8,6 +8,6 @@
 
 <div class="div">
 	<form action="?/generate" method="post" use:enhance></form>
-
+        
 	<p>Questions:</p>
 </div>

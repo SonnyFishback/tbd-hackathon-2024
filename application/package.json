@@ -11,6 +11,7 @@
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write .",
 		"postinstall": "prisma generate",
+		"generate-pwa-assets": "pwa-assets-generator --preset minimal-2023 static/logo.svg",
 		"seed": "vite-node ./prisma/seed.js"
 	},
 	"devDependencies": {
@@ -20,6 +21,7 @@
 		"@types/eslint": "8.56.3",
 		"@typescript-eslint/eslint-plugin": "^7.0.2",
 		"@typescript-eslint/parser": "^7.0.2",
+		"@vite-pwa/assets-generator": "^0.2.4",
 		"autoprefixer": "^10.4.17",
 		"eslint": "^8.57.0",
 		"eslint-config-prettier": "^9.1.0",

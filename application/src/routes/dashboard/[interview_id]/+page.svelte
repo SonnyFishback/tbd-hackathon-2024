@@ -23,7 +23,7 @@
 	};
 </script>
 
-<form action="/" method="post" use:enhance>
+<form method="post" use:enhance>
 	<Card.Root class="w-full">
 		<Card.Header>
 			<div class="flex justify-between">
@@ -46,14 +46,12 @@
 					</legend>
 					<Separator class="mb-8" />
 					<div class="flex flex-col space-y-2">
-						<RadioGroup.Root value={question.id}>
 							{#each question.answers as answer (answer.id)}
 								<div class="mb-6 flex items-center space-x-2">
-									<RadioGroup.Item id={answer.id} value={answer.id} />
+                                    <input type="radio" name={question.id} id={answer.id} value={answer.id}/>
 									<Label for={answer.id}>{answer.text}</Label>
 								</div>
 							{/each}
-						</RadioGroup.Root>
 					</div>
 				</fieldset>
 			{/each}

@@ -116,6 +116,7 @@ const generateQuestions = async (
 		console.log(completion)
 		const data = JSON.parse(completion.choices[0].message.content || '{}');
 		return data.questions || [];
+		console.log(data.questions)
 	} catch (error) {
 		console.info(error);
 	}

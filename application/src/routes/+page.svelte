@@ -5,6 +5,7 @@
 	import * as Card from '$lib/components/ui/card';
 	import AdvancedForm from '$lib/custom-components/form/AdvancedForm.svelte';
 	// import * as Form from "$lib/components/ui/form";
+	export let data: PageData;
 </script>
 
 <div class="flex-1">
@@ -13,7 +14,9 @@
 			class="mx-auto flex max-w-[980px] flex-col items-center gap-2 py-8 pb-8 md:py-12 md:pb-8 lg:py-12 lg:pb-20"
 		>
 			<a href="/" class="inline-flex items-center rounded-lg bg-muted px-3 py-1 text-sm font-medium"
-				>🔺 <div
+				>
+				{#if  data.interviewCount > 0}
+				🔺 <div
 					role="none"
 					aria-orientation="vertical"
 					aria-hidden="true"
@@ -22,11 +25,14 @@
 					data-separator-root=""
 					class="mx-2 h-4 w-[1px] shrink-0 bg-border"
 				></div>
-				<span data-svelte-h="svelte-1puani1" style="font-weight: bold">+12,959 </span>
+				<span data-svelte-h="svelte-1puani1" style="font-weight: bold">+{data.interviewCount} </span>
 				<span class="ml-4" data-svelte-h="svelte-wm3ivd"
 					>Successful Interviews, Still counting!</span
 				>
-				<img src="" alt="" srcset="" />
+				{:else}
+				<span data-svelte-h="svelte-1puani1" style="font-weight: bold">Be the first to take on our interview challanges!</span>
+				{/if}
+			
 			</a>
 			<h1
 				class="text-center text-3xl font-bold leading-tight tracking-tighter md:text-6xl lg:leading-[1.1]"

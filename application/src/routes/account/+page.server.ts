@@ -10,17 +10,20 @@ export const load = (async ({ locals }) => {
 		return redirect(303, '/');
 	}
 
-    const user = await prisma.user.findUnique({
+    const [user, levels, interviews] = await Promise.all([prisma.user.findUnique({
         where: {
             id: session.user.id
         },
-    })
+    }),prisma.level.findMany(), prisma.interview.findMany() ])
 
     if(!user) {
         return error(500, "I Definitly messed something up")
     }
+
     return {
-        user
+        user,
+        levels,
+        interviews
     };
 }) satisfies PageServerLoad;
 

@@ -46,6 +46,7 @@ model InterviewAnswer {
 
 model Question {
   id          String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  text        String
   interview   Interview      @relation(fields: [interviewID], references: [id])
   interviewID String         @db.Uuid
   asnwers     AnswerChoice[]

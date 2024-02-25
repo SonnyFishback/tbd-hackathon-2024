@@ -88,8 +88,8 @@
 				<Label for="r3">Senior</Label>
 			</div>
 			<div class="flex items-center space-x-2">
-				<RadioGroup.Item value="compact" id="r3" name="answer" />
-				<Label for="r3">Lead</Label>
+				<RadioGroup.Item value="compact" id="r4" name="answer" />
+				<Label for="r4">Lead</Label>
 			</div>
 		</RadioGroup.Root>
 	</div>

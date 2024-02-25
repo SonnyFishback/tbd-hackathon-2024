@@ -29,12 +29,12 @@
 				<img src="" alt="" srcset="" />
 			</a>
 			<h1
-				class="text-center text-3xl font-bold leading-tight tracking-tighter md:text-6xl lg:leading-[1.1]"
+				class="main-title text-center text-3xl font-bold leading-tight tracking-tighter md:text-6xl lg:leading-[1.1] mt-6"
 			>
-				Modern <span style="color: blue">Hiring</span> Tools<br />
-				for all <span style="color: red">Interviews!</span>
+				Modern Hiring Tools<br />
+				for all <span style="color: red"></span>Interviews!
 			</h1>
-			<p class="max-w-[750px] text-balance text-center text-lg text-muted-foreground sm:text-xl">
+			<p class="max-w-[750px] text-balance text-center text-lg text-muted-foreground sm:text-xl my-6">
 				Conquer interviews with next-gen AI coaching. Uncover your strengths,<br />practice like a
 				pro, and nail your dream job.
 			</p>
@@ -43,14 +43,14 @@
 				data-svelte-h="svelte-k797bx"
 			>
 				This is our hackathon version of <a
-					href="https://github.com/shadcn/ui"
+					href="/"
 					target="_blank"
 					rel="noreferrer"
 					class="font-medium underline underline-offset-4">prep.io</a
 				>
 				official version, will be released in
 				<a
-					href="https://twitter.com/shadcn"
+					href="/"
 					target="_blank"
 					rel="noreferrer"
 					class="font-medium underline underline-offset-4">October 2024</a
@@ -102,3 +102,13 @@
 		</section>
 	</div>
 </div>
+
+<style>
+
+	.main-title {
+		background: linear-gradient(45deg, #FF3D47, #2D9CCB, #FFA84A);
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent
+	}
+</style>

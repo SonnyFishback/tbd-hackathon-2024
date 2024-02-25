@@ -13,7 +13,7 @@ export const load = (async ({ params }) => {
             answers: true
         }
     });
-
+    console.log(questions)
     return {
         questions
     };

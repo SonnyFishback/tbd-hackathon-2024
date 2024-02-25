@@ -23,6 +23,7 @@ export const actions = {
 			const description = form.get('description')?.toString() || '';
 
 			const questions = await generateQuestions(description)
+	
 			const interview = await prisma.interview.create({
 				data: {
 					owner: { connect: { id: session?.user.id } }
@@ -61,7 +62,6 @@ export const actions = {
 				}
 
 			};
-			console.log(interview, 'created interview');
 
 			return redirect(303, `/dashboard/${interview.id}`);
 			return {
@@ -113,6 +113,7 @@ const generateQuestions = async (
 			],
 			response_format: { type: 'json_object' }
 		});
+		console.log(completion)
 		const data = JSON.parse(completion.choices[0].message.content || '{}');
 		return data.questions || [];
 	} catch (error) {

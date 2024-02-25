@@ -164,10 +164,10 @@
 				{:else}
 					<form method="POST" action="/account?/login" use:enhance>
 						<Button variant="ghost" size="sm" type="submit" name="provider" value="google">
-							<Hexagon />
+							<img src="../../../../../google-logo.png" width="20" alt="google logo" />
 						</Button>
 						<Button variant="ghost" size="sm" type="submit" name="provider" value="linkedin_oidc">
-							<Linkedin />
+							<img src="../../../../../linkedin-logo.png" width="20" alt="linkedin logo" />
 						</Button>
 					</form>
 				{/if}

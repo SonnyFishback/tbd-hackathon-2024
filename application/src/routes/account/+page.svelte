@@ -7,21 +7,19 @@
 
 <section>
 	<h1 class="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
-		Welcome Back
-		{data.user.user_metadata.given_name}
-		{data.user.user_metadata.family_name}!
+		Welcome Back {data.user.name}!
 	</h1>
 
-	<!-- 	<div class=" grid">
+	<div class=" grid">
 		<Avatar>
-			{#if data.user?.user_metadata.picture}
-				<Image src={data.user.user_metadata.picture} alt="Profile Picture"></Image>
+			{#if data.user.avatar}
+				<Image src={data.user.avatar} alt="Profile Picture"></Image>
 			{/if}
 			<Fallback
-				>{`${data.user.user_metadata.given_name[0]}${data.user.user_metadata.family_name[0]}`}</Fallback
+				>{`${data.user.name[0]}`}</Fallback
 			>
 		</Avatar>
-	</div> -->
+	</div> 
 
 	{JSON.stringify(data.user)}
 </section>

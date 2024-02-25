@@ -5,12 +5,15 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+  schemas   = ["public", "auth"]
 }
 
 model User {
@@ -24,8 +27,10 @@ model User {
   submissions InterviewSubmission[]
   interviews  Interview[]
   xp          Int                   @default(0)
+
   // badges String[]
   // accomplishments String[]
+  @@schema("auth")
 }
 
 model Interview {
@@ -34,6 +39,8 @@ model Interview {
   submissions InterviewSubmission[]
   owner       User                  @relation(fields: [ownerID], references: [id])
   ownerID     String                @db.Uuid
+
+  @@schema("public")
 }
 
 model Question {
@@ -42,6 +49,8 @@ model Question {
   interview   Interview @relation(fields: [interviewID], references: [id])
   interviewID String    @db.Uuid
   asnwers     Answer[]
+
+  @@schema("public")
 }
 
 model Answer {
@@ -49,6 +58,8 @@ model Answer {
   question   Question @relation(fields: [questionID], references: [id])
   questionID String   @db.Uuid
   text       String
+
+  @@schema("public")
 }
 
 model InterviewSubmission {
@@ -59,6 +70,8 @@ model InterviewSubmission {
   interviewID   String    @db.Uuid
   answers       String[]
   // results String
+
+  @@schema("public")
 }
 
 // model Invitation {

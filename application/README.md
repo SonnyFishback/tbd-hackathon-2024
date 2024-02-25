@@ -9,6 +9,7 @@
 - PNPM
 
 2. Gather required credentials/access:
+
 - Supabase
 - Vercel
 - Github
@@ -16,12 +17,14 @@
 3. Clone project
 
 4. Install dependencies
+
 ```bash
     cd ./application
     pnpm install
 ```
 
 5. Run development server:
+
 ```bash
     pnpm dev
 ```

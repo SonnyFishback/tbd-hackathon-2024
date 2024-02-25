@@ -6,14 +6,12 @@
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["multiSchema"]
 }
 
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
-  schemas   = ["public", "auth"]
 }
 
 model User {
@@ -27,10 +25,15 @@ model User {
   submissions InterviewSubmission[]
   interviews  Interview[]
   xp          Int                   @default(0)
-
   // badges String[]
   // accomplishments String[]
-  @@schema("auth")
+}
+
+model Level {
+  id          Int    @id @default(autoincrement())
+  requirement Int
+  picture     String
+  name        String
 }
 
 model Interview {
@@ -40,7 +43,6 @@ model Interview {
   owner       User                  @relation(fields: [ownerID], references: [id])
   ownerID     String                @db.Uuid
 
-  @@schema("public")
 }
 
 model Question {
@@ -49,8 +51,6 @@ model Question {
   interview   Interview @relation(fields: [interviewID], references: [id])
   interviewID String    @db.Uuid
   asnwers     Answer[]
-
-  @@schema("public")
 }
 
 model Answer {
@@ -59,7 +59,6 @@ model Answer {
   questionID String   @db.Uuid
   text       String
 
-  @@schema("public")
 }
 
 model InterviewSubmission {
@@ -70,8 +69,6 @@ model InterviewSubmission {
   interviewID   String    @db.Uuid
   answers       String[]
   // results String
-
-  @@schema("public")
 }
 
 // model Invitation {

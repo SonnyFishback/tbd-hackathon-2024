@@ -6,13 +6,8 @@
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 	import { enhance } from '$app/forms';
 	export let session: any;
-	import { Linkedin, Hexagon } from 'lucide-svelte';
-	import { UserRound } from 'lucide-svelte';
-	import { goto } from '$app/navigation';
-
-	function navigateTo(path: string) {
-		goto(path);
-	}
+	import { Linkedin, Hexagon, LogOutIcon } from 'lucide-svelte';
+	import { Avatar, Image, Fallback } from '$lib/components/ui/avatar';
 </script>
 
 <header>
@@ -43,35 +38,6 @@
 					></line></svg
 				> <span class="hidden font-bold sm:inline-block">prep.io</span></a
 			>
-			<nav class="flex items-center gap-6 text-sm">
-				<a href="/docs" class="text-foreground/60 transition-colors hover:text-foreground/80"
-					>Docs</a
-				>
-				<a
-					href="/docs/components"
-					class="text-foreground/60 transition-colors hover:text-foreground/80">Services</a
-				>
-				<a href="/themes" class="text-foreground/60 transition-colors hover:text-foreground/80"
-					>Features</a
-				>
-				<a href="/examples" class="text-foreground/60 transition-colors hover:text-foreground/80"
-					>Pricing</a
-				>
-				<a
-					href="/"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="hidden text-foreground/60 transition-colors hover:text-foreground/80 lg:block"
-					data-svelte-h="svelte-tibn2o">About</a
-				>
-				<a
-					href="/"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="hidden text-foreground/60 transition-colors hover:text-foreground/80 lg:block"
-					data-svelte-h="svelte-tibn2o">Contact</a
-				>
-			</nav>
 		</div>
 		<button
 			type="button"
@@ -122,50 +88,27 @@
 				</Button>
 
 				{#if session}
-					<DropdownMenu.Root>
-						<DropdownMenu.Trigger asChild let:builder>
-							<Button size="sm" builders={[builder]} variant="outline">
-								<UserRound />{session.user.user_metadata.given_name}
+					<ul class=" inline-flex gap-2">
+						<li>
+							<Button href="/account" aria-label="My Account" variant="link" >
+								<Avatar>
+									<Image
+										src={session.user.app_metadata.provider === 'google'
+											? session.user.user_metadata.avatar_url
+											: session.user.user_metadata.picture}
+										alt="Profile Picture"
+									></Image>
+
+									<Fallback>{session.user.email[0]}</Fallback>
+								</Avatar>
 							</Button>
-						</DropdownMenu.Trigger>
-						<DropdownMenu.Content class="w-56">
-							<DropdownMenu.Label>My Account</DropdownMenu.Label>
-							<DropdownMenu.Separator />
-							<DropdownMenu.Group>
-								<DropdownMenu.Item on:click={() => navigateTo('/account')}>
-									Profile
-									<DropdownMenu.Shortcut>⇧⌘P</DropdownMenu.Shortcut>
-								</DropdownMenu.Item>
-								<DropdownMenu.Item on:click={() => navigateTo('/dashboard')}>
-									Dashboard
-									<DropdownMenu.Shortcut>⌘B</DropdownMenu.Shortcut>
-								</DropdownMenu.Item>
-								<DropdownMenu.Item on:click={() => navigateTo('/interview')}>
-									Interviews
-									<DropdownMenu.Shortcut>⌘B</DropdownMenu.Shortcut>
-								</DropdownMenu.Item>
-								<DropdownMenu.Item on:click={() => navigateTo('/Accomplishments')}>
-									Accomplishments
-									<DropdownMenu.Shortcut>⌘B</DropdownMenu.Shortcut>
-								</DropdownMenu.Item>
-								<DropdownMenu.Item on:click={() => navigateTo('/reports')}>
-									Reports
-									<DropdownMenu.Shortcut>⌘K</DropdownMenu.Shortcut>
-								</DropdownMenu.Item>
-								<DropdownMenu.Item on:click={() => navigateTo('/settings')}>
-									Settings
-									<DropdownMenu.Shortcut>⌘S</DropdownMenu.Shortcut>
-								</DropdownMenu.Item>
-							</DropdownMenu.Group>
-							<DropdownMenu.Separator />
-							<DropdownMenu.Item>
-								<form method="POST" action="/account?/logout" use:enhance>
-									<Button type="submit" variant="ghost">Logout</Button>
-								</form>
-								<DropdownMenu.Shortcut>⇧⌘Q</DropdownMenu.Shortcut>
-							</DropdownMenu.Item>
-						</DropdownMenu.Content>
-					</DropdownMenu.Root>
+						</li>
+						<li>
+							<form method="POST" action="/account?/logout" use:enhance>
+								<Button type="submit" aria-label="Log out" variant="ghost"><LogOutIcon/></Button>
+							</form>
+						</li>
+					</ul>
 				{:else}
 					<form method="POST" action="/account?/login" use:enhance>
 						<Button variant="ghost" size="sm" type="submit" name="provider" value="google">

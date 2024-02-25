@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { Card, CardContent, CardDescription, CardTitle } from '$lib/components/ui/card';
 	import type { PageData } from './$types';
-	import { Avatar, Image, Fallback } from '$lib/components/ui/avatar';
 	import Progress from '$lib/components/ui/progress/progress.svelte';
 	import { Label } from '$lib/components/ui/label';
 	export let data: PageData;
@@ -49,13 +48,5 @@
 		{/if}
 	</h2>
 
-    <ul>
-        <li>
-            
-        </li>
-    </ul>
-
-	{JSON.stringify(applicableLevels)}
-
-    <a class="m-2" href="/account/interviews"> Or check on your recent Interviews! </a>
+	<a class="m-2" href="/account/interviews"> Or check on your recent Interviews! </a>
 </section>

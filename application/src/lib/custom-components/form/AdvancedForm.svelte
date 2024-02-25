@@ -22,20 +22,26 @@
 			badges = [...badges, inputValue.trim()];
 			inputValue = '';
 			dispatch('badgeAdded', badges);
+		}
+	}
+
+	function handleInputKeyDown(event: KeyboardEvent | MouseEvent) {
+		if ('key' in event && (event as KeyboardEvent).key === 'Enter' || (event as KeyboardEvent).key === ',') {
+			addBadge();
 			remainingSkills--;
+			event.preventDefault();
 		}
 	}
 
 	function removeBadge(index: number) {
-	remainingSkills++;
-	badges.splice(index, 1);
-	badges = [...badges];
+		remainingSkills++;
+		badges = badges.filter((_, i) => i !== index);
+		badges = [...badges];
 	}
+
 	let formBadges: string;
 	$: {
-		if (badges) {
-			formBadges = badges.join(',');
-		}
+		formBadges = badges.join(',');
 	}
 </script>
 
@@ -75,15 +81,17 @@
 
 	<div class="grid items-center gap-1.5">
 		<Label>Preferred Skills</Label>
-		<Input placeholder="Type something and press Enter" bind:value={inputValue} on:keydown={event => event.key === 'Enter' && addBadge()} disabled={remainingSkills === 0} />
+		<Input placeholder="Type something and press Enter" bind:value={inputValue} on:keydown={handleInputKeyDown} disabled={remainingSkills === 0} />
 		<p class="text-sm text-muted-foreground">Click Enter each time you add a badge or just separate them with commas</p>
 		<div class="flex flex-wrap justify-between">
 			<div class="flex flex-wrap">
 				{#each badges as badge, index}
 					<div class="flex">
-						<div class="flex badge-container mr-4">
-							<Badge class="mr mb-1">{badge}</Badge>
-							<XCircle class="remove-button w-[16px] h-[16px]" on:click={() => removeBadge(index)} />
+						<div class="flex badge-container mr-3">
+							<Badge class=" mb-1">{badge}</Badge>
+							<div on:click={() => removeBadge(index)}>
+								<XCircle class="remove-button w-4 h-4 ml-1 cursor-pointer" />
+							</div>
 						</div>
 					</div>
 				{/each}
@@ -101,7 +109,7 @@
 	</div>
 
 	<div class="my-4" />
-	<input type="hidden" name="badges" bind:value={formBadges} />
+	<input type="hidden" name="skills" bind:value={formBadges} />
 
 	<Button type="submit">Submit</Button>
 </form>
@@ -109,11 +117,5 @@
 <style>
 	.badge-container {
 		position: relative;
-	}
-	.remove-button {
-		position: absolute;
-		top: -8px;
-		right: -8px;
-		cursor: pointer;
 	}
 </style>

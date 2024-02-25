@@ -104,56 +104,5 @@
 				</Tabs.Content>
 			</Tabs.Root>
 		</section>
-		<div class="relative">
-			<div class="lg:max-w-none">
-				<div
-					class="[&amp;>a:first-child]:text-primary mb-4 flex items-center overflow-y-auto pb-3 md:pb-0"
-				>
-					<a
-						href="/"
-						data-sveltekit-noscroll=""
-						class="relative flex h-7 items-center justify-center rounded-full px-4 text-center text-sm font-medium text-primary transition-colors hover:text-primary"
-						><div class="absolute inset-0 rounded-full bg-muted"></div>
-						<div class="relative">Dashboard</div>
-					</a><a
-						href="/"
-						data-sveltekit-noscroll=""
-						class="relative flex h-7 items-center justify-center rounded-full px-4 text-center text-sm text-muted-foreground transition-colors hover:text-primary"
-					>
-						<div class="relative">Services</div>
-					</a><a
-						href="/"
-						data-sveltekit-noscroll=""
-						class="relative flex h-7 items-center justify-center rounded-full px-4 text-center text-sm text-muted-foreground transition-colors hover:text-primary"
-					>
-						<div class="relative">Features</div>
-					</a><a
-						href="/"
-						data-sveltekit-noscroll=""
-						class="relative flex h-7 items-center justify-center rounded-full px-4 text-center text-sm text-muted-foreground transition-colors hover:text-primary"
-					>
-						<div class="relative">Pricing</div>
-					</a><a
-						href="/"
-						data-sveltekit-noscroll=""
-						class="relative flex h-7 items-center justify-center rounded-full px-4 text-center text-sm text-muted-foreground transition-colors hover:text-primary"
-					>
-						<div class="relative">Demo</div>
-					</a><a
-						href="/"
-						data-sveltekit-noscroll=""
-						class="relative flex h-7 items-center justify-center rounded-full px-4 text-center text-sm text-muted-foreground transition-colors hover:text-primary"
-					>
-						<div class="relative">About</div>
-					</a><a
-						href="/examples/authentication"
-						data-sveltekit-noscroll=""
-						class="relative flex h-7 items-center justify-center rounded-full px-4 text-center text-sm text-muted-foreground transition-colors hover:text-primary"
-					>
-						<div class="relative">Contact</div>
-					</a>
-				</div>
-			</div>
-		</div>
 	</div>
 </div>

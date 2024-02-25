@@ -9,15 +9,14 @@
 		{
 			title: 'My Account',
 			href: '/account',
-			items: [
-				{
-					title: 'Details',
-					href: '/account',
 
-					items: []
-				}
-			]
-		}
+            items: []
+		},
+        {
+            title: 'My Interviews',
+            href: '/account/interviews',
+            items: []
+        }
 	];
 </script>
 

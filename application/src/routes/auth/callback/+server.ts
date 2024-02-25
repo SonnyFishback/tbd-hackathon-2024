@@ -6,6 +6,13 @@ type GoogleMetaData = {
     email: string,
     full_name: string
 }
+
+type LinkedInMetaData = {
+    given_name: string,
+    family_name: string,
+    picture: string,
+    email: string
+}
 export const GET = async ({ url, locals: { supabase, getSession } }) => {
     const code = url.searchParams.get('code')
     if (!code) {
@@ -16,6 +23,7 @@ export const GET = async ({ url, locals: { supabase, getSession } }) => {
     const response = await supabase.auth.exchangeCodeForSession(code)
 
     if (response.error) {
+        console.log(response.error)
         return error(500, "What happen")
     }
 
@@ -43,6 +51,29 @@ export const GET = async ({ url, locals: { supabase, getSession } }) => {
                 name: data.full_name,
                 email: data.email,
                 avatar: data.avatar_url,
+                password: ''
+            }
+        })
+    }
+    if(provider === 'linkedin_oidc') {
+        const data  = user.user_metadata as LinkedInMetaData
+
+        await prisma.user.upsert({
+            where: {
+                id: user.id
+            },
+            update: {
+                username: data.email,
+                name: `${data.given_name} ${data.family_name}`,
+                email: data.email,
+                avatar: data.picture
+            },
+            create: {
+                id: user.id,
+                username: data.email,
+                name: `${data.given_name} ${data.family_name}`,
+                email: data.email,
+                avatar: data.picture,
                 password: ''
             }
         })

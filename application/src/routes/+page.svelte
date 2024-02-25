@@ -57,27 +57,23 @@
 				>.
 			</p>
 			<br />
-			<Tabs.Root value="instant" class="w-[700px]">
+			<Tabs.Root value="advanced" class="w-[700px]">
 				<Tabs.List class="grid w-full grid-cols-2">
-					<Tabs.Trigger value="instant">Instant Practice</Tabs.Trigger>
+					<Tabs.Trigger value="basic">Basic</Tabs.Trigger>
 					<Tabs.Trigger value="advanced">Advanced</Tabs.Trigger>
 				</Tabs.List>
-				<Tabs.Content value="instant">
+				<Tabs.Content value="basic">
 					<Card.Root>
 						<Card.Header>
-							<Card.Title>Job Description</Card.Title>
+							<Card.Title>Description</Card.Title>
 							<Card.Description>
-								<p class="line-1 anim-typewriter">Aninated text</p>
+								<p class="line-1 anim-typewriter">You can either paste a job title or a job description.</p>
 							</Card.Description>
 						</Card.Header>
 						<Card.Content class="space-y-2">
 							<div class="space-y-1">
 								<form method="POST">
-									<Textarea class="testtest">
-										<p class="line-1 anim-typewriter">
-											Animation typewriter style using css steps()
-										</p>
-									</Textarea>
+									<Textarea class="testtest" placeholder="Senior MERN Developer" />
 									<Button type="submit" class="mr-2 mt-8">Start now</Button>
 									<Button type="button" variant="secondary">Demo</Button>
 								</form>

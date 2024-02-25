@@ -5,7 +5,6 @@
 	export let data: PageData;
 </script>
 
-
 <section>
 	<h1 class="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
 		Welcome Back {data.user.name}!

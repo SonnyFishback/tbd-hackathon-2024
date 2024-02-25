@@ -4,13 +4,11 @@ import { prisma } from '$lib/server/prisma';
 import type { PageServerLoad } from './$types';
 
 export const load = (async ({ locals }) => {
+	const session = await locals.getSession();
 
-    const session = await locals.getSession();
-
-    if (!session || !session.user) {
-        return redirect(303, '/');
-    }
-
+	if (!session || !session.user) {
+		return redirect(303, '/');
+	}
 
     const user = await prisma.user.findUnique({
         where: {
@@ -42,6 +40,9 @@ export const actions = {
             }
         })
 
+		if (response.error) {
+			return fail(500, { message: 'Server error. Try again later.', success: false });
+		}
 
         if (response.error) {
             return fail(500, { message: 'Server error. Try again later.', success: false })

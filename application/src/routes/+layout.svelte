@@ -6,7 +6,6 @@
 	import type { LayoutData } from './$types';
 
 	import Header from '$lib/components/ui/header/Header.svelte';
-	import { preprocess } from 'svelte/compiler';
 
 	export let data: LayoutData;
 

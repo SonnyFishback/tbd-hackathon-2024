@@ -40,7 +40,7 @@
 </script>
 
 <div class="my-4" />
-<form method="POST" action="?/generate" use:enhance>
+<form method="POST" action="/interviews?/generate" use:enhance>
 	<div>
 		<Label>Job Description</Label>
 		<div class="my-4" />

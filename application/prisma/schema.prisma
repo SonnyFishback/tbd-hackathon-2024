@@ -49,13 +49,14 @@ model Question {
   text        String
   interview   Interview      @relation(fields: [interviewID], references: [id])
   interviewID String         @db.Uuid
-  asnwers     AnswerChoice[]
+  answers     AnswerChoice[]
 }
 
 model AnswerChoice {
   id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   question   Question @relation(fields: [questionID], references: [id])
   questionID String   @db.Uuid
+  text    String
   isCorrect  Boolean  @default(false)
 }
 

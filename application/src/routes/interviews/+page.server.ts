@@ -14,10 +14,10 @@ export const actions = {
 	generate: async ({ request, locals }) => {
 			const session = await locals.getSession();
 
-			// if (!session || !session.user) {
-			// 	console.error('No session or user');
-			// 	return redirect(303, '/');
-			// }
+			if (!session || !session.user) {
+				console.error('No session or user');
+				return redirect(303, '/');
+			}
 
 			const form = await request.formData();
 			const description = form.get('description')?.toString() || '';
@@ -25,7 +25,7 @@ export const actions = {
 			const questions = await generateQuestions(description)
 			const interview = await prisma.interview.create({
 				data: {
-					owner: { connect: { id: '17863e34-bd68-4cdf-a5d1-8ccb47d1085f' } }
+					owner: { connect: { id: session?.user.id } }
 				}
 			});
 

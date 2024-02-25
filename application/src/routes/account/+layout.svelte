@@ -9,15 +9,14 @@
 		{
 			title: 'My Account',
 			href: '/account',
-			items: [
-				{
-					title: 'Details',
-					href: '/account',
 
-					items: []
-				}
-			]
-		}
+            items: []
+		},
+        {
+            title: 'My Interviews',
+            href: '/account/interviews',
+            items: []
+        }
 	];
 </script>
 
@@ -33,7 +32,7 @@
 					<nav class="w-full">
 						<ul class=" list-none">
 							{#each items as item, index (index)}
-								<li >
+								<li>
 									<a
 										href={item.href}
 										class={cn(

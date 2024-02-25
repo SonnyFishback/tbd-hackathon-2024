@@ -15,7 +15,7 @@ export const load = (async ({ locals }) => {
     const user = await prisma.user.findUnique({
         where: {
             id: session.user.id
-        }
+        },
     })
 
     if(!user) {
@@ -44,6 +44,7 @@ export const actions = {
 
 
         if (response.error) {
+            console.log(response.error)
             return fail(500, { message: 'Server error. Try again later.', success: false })
         }
 
@@ -52,7 +53,6 @@ export const actions = {
     },
 
     logout: async ({ locals: { supabase } }) => {
-        console.log("logout")
         const { error } = await supabase.auth.signOut();
         if (error) {
             console.error(error)

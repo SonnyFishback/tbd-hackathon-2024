@@ -14,13 +14,6 @@
 	$: questions = form?.questions ? form.questions : [];
 
 	let answers: string[] = [];
-
-	export const snapshot: import('./$types').Snapshot<string[]> = {
-		capture: () => answers,
-		restore: (value: string[]) => {
-			value.forEach((v) => answers.push(v));
-		}
-	};
 </script>
 
 <main class="flex h-screen w-screen flex-col p-3">

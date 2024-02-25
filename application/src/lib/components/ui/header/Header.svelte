@@ -6,8 +6,12 @@
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 	import { enhance } from '$app/forms';
 	export let session: any;
-	import { Linkedin, Hexagon, LogOutIcon } from 'lucide-svelte';
+	import { Linkedin, Hexagon } from 'lucide-svelte';
 	import { Avatar, Image, Fallback } from '$lib/components/ui/avatar';
+	import { goto } from '$app/navigation';
+	function navigateTo(path: string) {
+		goto(path);
+	}
 </script>
 
 <header>
@@ -115,11 +119,10 @@
 					/>
 					<span class="sr-only">Toggle theme</span>
 				</Button>
-
 				{#if session}
-					<ul class=" inline-flex gap-2">
-						<li>
-							<Button href="/account" aria-label="My Account" variant="link">
+					<DropdownMenu.Root>
+						<DropdownMenu.Trigger asChild let:builder>
+							<Button size="sm" builders={[builder]} variant="ghost">
 								<Avatar>
 									<Image
 										src={session.user.app_metadata.provider === 'google'
@@ -131,13 +134,33 @@
 									<Fallback>{session.user.email[0]}</Fallback>
 								</Avatar>
 							</Button>
-						</li>
-						<li>
-							<form method="POST" action="/account?/logout" use:enhance>
-								<Button type="submit" aria-label="Log out" variant="ghost"><LogOutIcon /></Button>
-							</form>
-						</li>
-					</ul>
+						</DropdownMenu.Trigger>
+						<DropdownMenu.Content class="w-56">
+							<DropdownMenu.Label>My Account</DropdownMenu.Label>
+							<DropdownMenu.Separator />
+							<DropdownMenu.Group>
+								<DropdownMenu.Item on:click={() => navigateTo('/account')}>
+									Account
+									<DropdownMenu.Shortcut>⇧⌘P</DropdownMenu.Shortcut>
+								</DropdownMenu.Item>
+								<DropdownMenu.Item on:click={() => navigateTo('/account/interviews')}>
+									My Interviews
+									<DropdownMenu.Shortcut>⌘B</DropdownMenu.Shortcut>
+								</DropdownMenu.Item>
+								<DropdownMenu.Item on:click={() => navigateTo('/dashboard')}>
+									Dashboard
+									<DropdownMenu.Shortcut>⌘B</DropdownMenu.Shortcut>
+								</DropdownMenu.Item>
+							</DropdownMenu.Group>
+							<DropdownMenu.Separator />
+							<DropdownMenu.Item>
+								<form method="POST" action="/account?/logout" use:enhance>
+									<Button type="submit" variant="ghost">Logout</Button>
+								</form>
+								<DropdownMenu.Shortcut>⇧⌘Q</DropdownMenu.Shortcut>
+							</DropdownMenu.Item>
+						</DropdownMenu.Content>
+					</DropdownMenu.Root>
 				{:else}
 					<form method="POST" action="/account?/login" use:enhance>
 						<Button variant="ghost" size="sm" type="submit" name="provider" value="google">

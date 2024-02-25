@@ -38,7 +38,7 @@ model Interview {
 }
 
 model InterviewAnswer {
-  id          Int          @id @default(autoincrement())
+  id          String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   interview   Interview    @relation(fields: [interviewId], references: [id])
   interviewId String       @db.Uuid
   answer      AnswerChoice @relation(fields: [answerId], references: [id])

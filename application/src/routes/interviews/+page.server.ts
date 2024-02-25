@@ -1,6 +1,8 @@
 import type { PageServerLoad } from './$types';
 import OpenAI from 'openai';
 import { PRIVATE_OPENAI_API_KEY } from '$env/static/private';
+import { error, fail, redirect } from '@sveltejs/kit';
+import { prisma } from '$lib/server/prisma';
 
 const openai = new OpenAI({ apiKey: PRIVATE_OPENAI_API_KEY });
 
@@ -9,29 +11,72 @@ export const load = (async () => {
 }) satisfies PageServerLoad;
 
 export const actions = {
-	generate: async ({ request }) => {
-		try {
+	generate: async ({ request, locals }) => {
+			const session = await locals.getSession();
+
+			// if (!session || !session.user) {
+			// 	console.error('No session or user');
+			// 	return redirect(303, '/');
+			// }
+
 			const form = await request.formData();
 			const description = form.get('description')?.toString() || '';
 
-			const questions = await generateQuestions(description);
-			console.info(questions);
+			const questions = await generateQuestions(description)
+			const interview = await prisma.interview.create({
+				data: {
+					owner: { connect: { id: '17863e34-bd68-4cdf-a5d1-8ccb47d1085f' } }
+				}
+			});
 
+
+			for (const question of questions) {
+				const createdQuestion = await prisma.question.create({
+					data: {
+						interview: { connect: { id: interview.id } },
+						text: question.question,
+					}
+				})
+
+				const correctAnswer = await prisma.answerChoice.create(
+					{
+						data: {
+							question: { connect: { id: createdQuestion.id } },
+							text: question.correct,
+							isCorrect: true
+						}
+					}
+				);
+
+				for (const incorrect of question.incorrect) {
+					const incorrectAnswer = await prisma.answerChoice.create(
+						{
+							data: {
+								question: { connect: { id: createdQuestion.id } },
+								text: incorrect,
+								isCorrect: false
+							}
+						}
+					);
+				}
+
+			};
+			console.log(interview, 'created interview');
+
+			return redirect(303, `/dashboard/${interview.id}`);
 			return {
 				questions
 			};
-		} catch (error) {
-			return {};
-		}
+
 	}
 };
 
 const generateQuestions = async (
-    jobDescription: string,
-    focusAreas: string,
-    experienceLevel: string,
-    yearsOfExperience: string,
-    questionCount: number
+	jobDescription: string,
+	focusAreas: string = "",
+	experienceLevel: string = "",
+	yearsOfExperience: string = "",
+	questionCount: number = 10
 ) => {
 	try {
 		const completion = await openai.chat.completions.create({

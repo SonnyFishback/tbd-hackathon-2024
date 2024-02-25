@@ -8,6 +8,11 @@
 	export let session: any;
 	import { Linkedin, Hexagon } from 'lucide-svelte';
 	import { UserRound } from 'lucide-svelte';
+	import { goto } from '$app/navigation';
+
+	function navigateTo(path: string) {
+		goto(path);
+	}
 </script>
 
 <header>
@@ -119,60 +124,39 @@
 				{#if session}
 					<DropdownMenu.Root>
 						<DropdownMenu.Trigger asChild let:builder>
-							<Button builders={[builder]} variant="outline"
-								><UserRound />{session.user.user_metadata.given_name}</Button
-							>
+							<Button size="sm" builders={[builder]} variant="outline">
+								<UserRound />{session.user.user_metadata.given_name}
+							</Button>
 						</DropdownMenu.Trigger>
 						<DropdownMenu.Content class="w-56">
 							<DropdownMenu.Label>My Account</DropdownMenu.Label>
 							<DropdownMenu.Separator />
 							<DropdownMenu.Group>
-								<DropdownMenu.Item>
-									<a href="/account">Profile</a>
+								<DropdownMenu.Item on:click={() => navigateTo('/account')}>
+									Profile
 									<DropdownMenu.Shortcut>⇧⌘P</DropdownMenu.Shortcut>
 								</DropdownMenu.Item>
-								<DropdownMenu.Item>
-									<a href="/interview">Interviews</a>
+								<DropdownMenu.Item on:click={() => navigateTo('/dashboard')}>
+									Dashboard
 									<DropdownMenu.Shortcut>⌘B</DropdownMenu.Shortcut>
 								</DropdownMenu.Item>
-								<DropdownMenu.Item>
-									<a href="/dashboard">Dashboard</a>
+								<DropdownMenu.Item on:click={() => navigateTo('/interview')}>
+									Interviews
 									<DropdownMenu.Shortcut>⌘B</DropdownMenu.Shortcut>
 								</DropdownMenu.Item>
-								<DropdownMenu.Item>
+								<DropdownMenu.Item on:click={() => navigateTo('/Accomplishments')}>
 									Accomplishments
 									<DropdownMenu.Shortcut>⌘B</DropdownMenu.Shortcut>
 								</DropdownMenu.Item>
-								<DropdownMenu.Item>
+								<DropdownMenu.Item on:click={() => navigateTo('/reports')}>
+									Reports
+									<DropdownMenu.Shortcut>⌘K</DropdownMenu.Shortcut>
+								</DropdownMenu.Item>
+								<DropdownMenu.Item on:click={() => navigateTo('/settings')}>
 									Settings
 									<DropdownMenu.Shortcut>⌘S</DropdownMenu.Shortcut>
 								</DropdownMenu.Item>
-								<DropdownMenu.Item>
-									Keyboard shortcuts
-									<DropdownMenu.Shortcut>⌘K</DropdownMenu.Shortcut>
-								</DropdownMenu.Item>
 							</DropdownMenu.Group>
-							<DropdownMenu.Separator />
-							<DropdownMenu.Group>
-								<DropdownMenu.Item>Team</DropdownMenu.Item>
-								<DropdownMenu.Sub>
-									<DropdownMenu.SubTrigger>Invite users</DropdownMenu.SubTrigger>
-									<DropdownMenu.SubContent>
-										<DropdownMenu.Item>Email</DropdownMenu.Item>
-										<DropdownMenu.Item>Message</DropdownMenu.Item>
-										<DropdownMenu.Separator />
-										<DropdownMenu.Item>More...</DropdownMenu.Item>
-									</DropdownMenu.SubContent>
-								</DropdownMenu.Sub>
-								<DropdownMenu.Item>
-									New Team
-									<DropdownMenu.Shortcut>⌘+T</DropdownMenu.Shortcut>
-								</DropdownMenu.Item>
-							</DropdownMenu.Group>
-							<DropdownMenu.Separator />
-							<DropdownMenu.Item>GitHub</DropdownMenu.Item>
-							<DropdownMenu.Item>Support</DropdownMenu.Item>
-							<DropdownMenu.Item>API</DropdownMenu.Item>
 							<DropdownMenu.Separator />
 							<DropdownMenu.Item>
 								<form method="POST" action="/account?/logout" use:enhance>

@@ -10,13 +10,11 @@
 		Welcome Back {data.user.name}!
 	</h1>
 
-    <a class="m-2" href="/account/interviews">
-        Check on your recent Interviews!
-    </a>
-    {#if data.user.level}
-    <section>
-        <h2>You are a {level.name}</h2>
-        <p> xp: {data.user.xp}</p>
-    </section>
-    {/if}
+	<a class="m-2" href="/account/interviews"> Check on your recent Interviews! </a>
+	{#if data.user.level}
+		<section>
+			<h2>You are a {level.name}</h2>
+			<p>xp: {data.user.xp}</p>
+		</section>
+	{/if}
 </section>

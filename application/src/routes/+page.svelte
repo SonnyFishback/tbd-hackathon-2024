@@ -29,12 +29,14 @@
 				<img src="" alt="" srcset="" />
 			</a>
 			<h1
-				class="main-title text-center text-3xl font-bold leading-tight tracking-tighter md:text-6xl lg:leading-[1.1] mt-6"
+				class="main-title mt-6 text-center text-3xl font-bold leading-tight tracking-tighter md:text-6xl lg:leading-[1.1]"
 			>
 				Modern Hiring Tools<br />
 				for all <span style="color: red"></span>Interviews!
 			</h1>
-			<p class="max-w-[750px] text-balance text-center text-lg text-muted-foreground sm:text-xl my-6">
+			<p
+				class="my-6 max-w-[750px] text-balance text-center text-lg text-muted-foreground sm:text-xl"
+			>
 				Conquer interviews with next-gen AI coaching. Uncover your strengths,<br />practice like a
 				pro, and nail your dream job.
 			</p>
@@ -67,7 +69,9 @@
 						<Card.Header>
 							<Card.Title>Description</Card.Title>
 							<Card.Description>
-								<p class="line-1 anim-typewriter">You can either paste a job title or a job description.</p>
+								<p class="line-1 anim-typewriter">
+									You can either paste a job title or a job description.
+								</p>
 							</Card.Description>
 						</Card.Header>
 						<Card.Content class="space-y-2">
@@ -104,11 +108,10 @@
 </div>
 
 <style>
-
 	.main-title {
-		background: linear-gradient(45deg, #FF3D47, #2D9CCB, #FFA84A);
+		background: linear-gradient(45deg, #ff3d47, #2d9ccb, #ffa84a);
 		-webkit-background-clip: text;
 		background-clip: text;
-		color: transparent
+		color: transparent;
 	}
 </style>

@@ -13,59 +13,58 @@
 <header>
 	<div class="container flex h-14 max-w-screen-2xl items-center">
 		<div class="mr-4 hidden md:flex">
-			<a href="/" class="mr-6 flex items-center space-x-2"
-				>
+			<a href="/" class="mr-6 flex items-center space-x-2">
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="h-6 w-6">
 					<rect width="256" height="256" fill="none"></rect>
 					<line
-					  x1="37"
-					  y1="37"
-					  x2="219"
-					  y2="37"
-					  fill="none"
-					  stroke="#F36036"
-					  stroke-linecap="round"
-					  stroke-linejoin="round"
-					  stroke-width="24"
+						x1="37"
+						y1="37"
+						x2="219"
+						y2="37"
+						fill="none"
+						stroke="#F36036"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="24"
 					></line>
 					<!-- Right line with rounded ends (green) -->
 					<line
-					  x1="219"
-					  y1="37"
-					  x2="219"
-					  y2="219"
-					  fill="none"
-					  stroke="#2B8A6E"
-					  stroke-linecap="round"
-					  stroke-linejoin="round"
-					  stroke-width="24"
+						x1="219"
+						y1="37"
+						x2="219"
+						y2="219"
+						fill="none"
+						stroke="#2B8A6E"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="24"
 					></line>
 					<!-- Bottom line with rounded ends (brown) -->
 					<line
-					  x1="37"
-					  y1="219"
-					  x2="219"
-					  y2="219"
-					  fill="none"
-					  stroke="#8D5B4C"
-					  stroke-linecap="round"
-					  stroke-linejoin="round"
-					  stroke-width="24"
+						x1="37"
+						y1="219"
+						x2="219"
+						y2="219"
+						fill="none"
+						stroke="#8D5B4C"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="24"
 					></line>
 					<!-- Left line with rounded ends (blue) -->
 					<line
-					  x1="37"
-					  y1="37"
-					  x2="37"
-					  y2="219"
-					  fill="none"
-					  stroke="#447B9C"
-					  stroke-linecap="round"
-					  stroke-linejoin="round"
-					  stroke-width="24"
+						x1="37"
+						y1="37"
+						x2="37"
+						y2="219"
+						fill="none"
+						stroke="#447B9C"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="24"
 					></line>
-				  </svg>
-				  
+				</svg>
+
 				<span class="hidden font-bold sm:inline-block">prep.io</span></a
 			>
 		</div>
@@ -120,7 +119,7 @@
 				{#if session}
 					<ul class=" inline-flex gap-2">
 						<li>
-							<Button href="/account" aria-label="My Account" variant="link" >
+							<Button href="/account" aria-label="My Account" variant="link">
 								<Avatar>
 									<Image
 										src={session.user.app_metadata.provider === 'google'
@@ -135,7 +134,7 @@
 						</li>
 						<li>
 							<form method="POST" action="/account?/logout" use:enhance>
-								<Button type="submit" aria-label="Log out" variant="ghost"><LogOutIcon/></Button>
+								<Button type="submit" aria-label="Log out" variant="ghost"><LogOutIcon /></Button>
 							</form>
 						</li>
 					</ul>

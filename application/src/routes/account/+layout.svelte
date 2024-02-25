@@ -10,13 +10,13 @@
 			title: 'My Account',
 			href: '/account',
 
-            items: []
+			items: []
 		},
-        {
-            title: 'My Interviews',
-            href: '/account/interviews',
-            items: []
-        }
+		{
+			title: 'My Interviews',
+			href: '/account/interviews',
+			items: []
+		}
 	];
 </script>
 

@@ -9,7 +9,7 @@
 	import { XCircle } from 'lucide-svelte';
 	import { createEventDispatcher } from 'svelte';
 	import { enhance } from '$app/forms';
-  
+
 	const dispatch = createEventDispatcher();
 
 	const MAX_SKILLS = 5;
@@ -26,7 +26,10 @@
 	}
 
 	function handleInputKeyDown(event: KeyboardEvent | MouseEvent) {
-		if ('key' in event && (event as KeyboardEvent).key === 'Enter' || (event as KeyboardEvent).key === ',') {
+		if (
+			('key' in event && (event as KeyboardEvent).key === 'Enter') ||
+			(event as KeyboardEvent).key === ','
+		) {
 			addBadge();
 			remainingSkills--;
 			event.preventDefault();
@@ -81,16 +84,23 @@
 
 	<div class="grid items-center gap-1.5">
 		<Label>Preferred Skills</Label>
-		<Input placeholder="Type something and press Enter" bind:value={inputValue} on:keydown={handleInputKeyDown} disabled={remainingSkills === 0} />
-		<p class="text-sm text-muted-foreground">Click Enter each time you add a badge or just separate them with commas</p>
+		<Input
+			placeholder="Type something and press Enter"
+			bind:value={inputValue}
+			on:keydown={handleInputKeyDown}
+			disabled={remainingSkills === 0}
+		/>
+		<p class="text-sm text-muted-foreground">
+			Click Enter each time you add a badge or just separate them with commas
+		</p>
 		<div class="flex flex-wrap justify-between">
 			<div class="flex flex-wrap">
 				{#each badges as badge, index}
 					<div class="flex">
-						<div class="flex badge-container mr-3">
+						<div class="badge-container mr-3 flex">
 							<Badge class=" mb-1">{badge}</Badge>
 							<div on:click={() => removeBadge(index)}>
-								<XCircle class="remove-button w-4 h-4 ml-1 cursor-pointer" />
+								<XCircle class="remove-button ml-1 h-4 w-4 cursor-pointer" />
 							</div>
 						</div>
 					</div>

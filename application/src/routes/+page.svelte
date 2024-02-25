@@ -4,6 +4,7 @@
 	import * as Tabs from '$lib/components/ui/tabs';
 	import * as Card from '$lib/components/ui/card';
 	import AdvancedForm from '$lib/custom-components/form/AdvancedForm.svelte';
+	import { enhance } from '$app/forms';
 	// import * as Form from "$lib/components/ui/form";
 </script>
 
@@ -76,8 +77,8 @@
 						</Card.Header>
 						<Card.Content class="space-y-2">
 							<div class="space-y-1">
-								<form method="POST">
-									<Textarea class="testtest" placeholder="Senior MERN Developer" />
+								<form method="POST" action="/interviews?/generate" use:enhance>
+									<Textarea placeholder="Senior MERN Developer" name="description"/>
 									<Button type="submit" class="mr-2 mt-8">Start now</Button>
 									<Button type="button" variant="secondary">Demo</Button>
 								</form>

@@ -6,37 +6,70 @@
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 	import { enhance } from '$app/forms';
 	export let session: any;
-	import { Linkedin, Hexagon, LogOutIcon } from 'lucide-svelte';
+	import { Linkedin, Hexagon } from 'lucide-svelte';
 	import { Avatar, Image, Fallback } from '$lib/components/ui/avatar';
+	import { goto } from '$app/navigation';
+	function navigateTo(path: string) {
+		goto(path);
+	}
 </script>
 
 <header>
 	<div class="container flex h-14 max-w-screen-2xl items-center">
 		<div class="mr-4 hidden md:flex">
-			<a href="/" class="mr-6 flex items-center space-x-2"
-				><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="h-6 w-6"
-					><rect width="256" height="256" fill="none"></rect><line
-						x1="208"
-						y1="128"
-						x2="128"
-						y2="208"
+			<a href="/" class="mr-6 flex items-center space-x-2">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="h-6 w-6">
+					<rect width="256" height="256" fill="none"></rect>
+					<line
+						x1="37"
+						y1="37"
+						x2="219"
+						y2="37"
 						fill="none"
-						stroke="#EB4F27"
+						stroke="#F36036"
 						stroke-linecap="round"
 						stroke-linejoin="round"
-						stroke-width="16"
-					></line><line
-						x1="192"
-						y1="40"
-						x2="40"
-						y2="192"
+						stroke-width="24"
+					></line>
+					<!-- Right line with rounded ends (green) -->
+					<line
+						x1="219"
+						y1="37"
+						x2="219"
+						y2="219"
 						fill="none"
-						stroke="#EB4F27"
+						stroke="#2B8A6E"
 						stroke-linecap="round"
 						stroke-linejoin="round"
-						stroke-width="16"
-					></line></svg
-				> <span class="hidden font-bold sm:inline-block">prep.io</span></a
+						stroke-width="24"
+					></line>
+					<!-- Bottom line with rounded ends (brown) -->
+					<line
+						x1="37"
+						y1="219"
+						x2="219"
+						y2="219"
+						fill="none"
+						stroke="#8D5B4C"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="24"
+					></line>
+					<!-- Left line with rounded ends (blue) -->
+					<line
+						x1="37"
+						y1="37"
+						x2="37"
+						y2="219"
+						fill="none"
+						stroke="#447B9C"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="24"
+					></line>
+				</svg>
+
+				<span class="hidden font-bold sm:inline-block">prep.io</span></a
 			>
 		</div>
 		<button
@@ -86,11 +119,10 @@
 					/>
 					<span class="sr-only">Toggle theme</span>
 				</Button>
-
 				{#if session}
-					<ul class=" inline-flex gap-2">
-						<li>
-							<Button href="/account" aria-label="My Account" variant="link" >
+					<DropdownMenu.Root>
+						<DropdownMenu.Trigger asChild let:builder>
+							<Button size="sm" builders={[builder]} variant="ghost">
 								<Avatar>
 									<Image
 										src={session.user.app_metadata.provider === 'google'
@@ -102,13 +134,33 @@
 									<Fallback>{session.user.email[0]}</Fallback>
 								</Avatar>
 							</Button>
-						</li>
-						<li>
-							<form method="POST" action="/account?/logout" use:enhance>
-								<Button type="submit" aria-label="Log out" variant="ghost"><LogOutIcon/></Button>
-							</form>
-						</li>
-					</ul>
+						</DropdownMenu.Trigger>
+						<DropdownMenu.Content class="w-56">
+							<DropdownMenu.Label>My Account</DropdownMenu.Label>
+							<DropdownMenu.Separator />
+							<DropdownMenu.Group>
+								<DropdownMenu.Item on:click={() => navigateTo('/account')}>
+									Account
+									<DropdownMenu.Shortcut>⇧⌘P</DropdownMenu.Shortcut>
+								</DropdownMenu.Item>
+								<DropdownMenu.Item on:click={() => navigateTo('/account/interviews')}>
+									My Interviews
+									<DropdownMenu.Shortcut>⌘B</DropdownMenu.Shortcut>
+								</DropdownMenu.Item>
+								<DropdownMenu.Item on:click={() => navigateTo('/dashboard')}>
+									Dashboard
+									<DropdownMenu.Shortcut>⌘B</DropdownMenu.Shortcut>
+								</DropdownMenu.Item>
+							</DropdownMenu.Group>
+							<DropdownMenu.Separator />
+							<DropdownMenu.Item>
+								<form method="POST" action="/account?/logout" use:enhance>
+									<Button type="submit" variant="ghost">Logout</Button>
+								</form>
+								<DropdownMenu.Shortcut>⇧⌘Q</DropdownMenu.Shortcut>
+							</DropdownMenu.Item>
+						</DropdownMenu.Content>
+					</DropdownMenu.Root>
 				{:else}
 					<form method="POST" action="/account?/login" use:enhance>
 						<Button variant="ghost" size="sm" type="submit" name="provider" value="google">

@@ -6,49 +6,108 @@
 	import { Badge } from '$lib/components/ui/badge';
 	import { Input } from '$lib/components/ui/input';
 	import { Separator } from '$lib/components/ui/separator';
+	import { XCircle } from 'lucide-svelte';
+	import { createEventDispatcher } from 'svelte';
+	import { enhance } from '$app/forms';
+
+	const dispatch = createEventDispatcher();
+
+	const MAX_SKILLS = 5;
+	let remainingSkills = MAX_SKILLS;
+	let inputValue = '';
+	let badges: string[] = [];
+
+	function addBadge() {
+		if (inputValue.trim() !== '') {
+			badges = [...badges, inputValue.trim()];
+			inputValue = '';
+			dispatch('badgeAdded', badges);
+		}
+	}
+
+	function handleInputKeyDown(event: KeyboardEvent | MouseEvent) {
+		if (
+			('key' in event && (event as KeyboardEvent).key === 'Enter') ||
+			(event as KeyboardEvent).key === ','
+		) {
+			addBadge();
+			remainingSkills--;
+			event.preventDefault();
+		}
+	}
+
+	function removeBadge(index: number) {
+		remainingSkills++;
+		badges = badges.filter((_, i) => i !== index);
+		badges = [...badges];
+	}
+
+	let formBadges: string;
+	$: {
+		formBadges = badges.join(',');
+	}
 </script>
 
 <div class="my-4" />
-<form method="POST" action="">
+<form method="POST" action="/interviews?/generate" use:enhance>
 	<div>
 		<Label>Job Description</Label>
 		<div class="my-4" />
-		<Textarea />
+		<Textarea name="description" />
 	</div>
 
 	<Separator class="my-4" />
 	<div>
-		<Label>Strength</Label>
+		<Label>Seniority</Label>
 		<div class="my-4" />
 		<RadioGroup.Root value="comfortable">
 			<div class="flex items-center space-x-2">
-				<RadioGroup.Item value="default" id="r1" />
-				<Label for="r1">Default</Label>
+				<RadioGroup.Item value="default" id="r1" name="answer" />
+				<Label for="r1">Entry Level</Label>
 			</div>
 			<div class="flex items-center space-x-2">
-				<RadioGroup.Item value="comfortable" id="r2" />
-				<Label for="r2">Comfortable</Label>
+				<RadioGroup.Item value="comfortable" id="r2" name="answer" />
+				<Label for="r2">Junior</Label>
 			</div>
 			<div class="flex items-center space-x-2">
-				<RadioGroup.Item value="compact" id="r3" />
-				<Label for="r3">Compact</Label>
+				<RadioGroup.Item value="compact" id="r3" name="answer" />
+				<Label for="r3">Senior</Label>
 			</div>
-			<RadioGroup.Input name="spacing" />
+			<div class="flex items-center space-x-2">
+				<RadioGroup.Item value="compact" id="r3" name="answer" />
+				<Label for="r3">Lead</Label>
+			</div>
 		</RadioGroup.Root>
 	</div>
 
 	<Separator class="my-4" />
 
-	<div>
+	<div class="grid items-center gap-1.5">
 		<Label>Preferred Skills</Label>
-		<div class="my-4" />
-		<Input />
-		<div class="my-4" />
-		<Badge>React</Badge>
-		<Badge>Node</Badge>
-		<Badge>Express</Badge>
-		<Badge>Python</Badge>
-		<Badge>MongoDB</Badge>
+		<Input
+			placeholder="Type something and press Enter"
+			bind:value={inputValue}
+			on:keydown={handleInputKeyDown}
+			disabled={remainingSkills === 0}
+		/>
+		<p class="text-sm text-muted-foreground">
+			Click Enter each time you add a badge or just separate them with commas
+		</p>
+		<div class="flex flex-wrap justify-between">
+			<div class="flex flex-wrap">
+				{#each badges as badge, index}
+					<div class="flex">
+						<div class="badge-container mr-3 flex">
+							<Badge class=" mb-1">{badge}</Badge>
+							<div on:click={() => removeBadge(index)}>
+								<XCircle class="remove-button ml-1 h-4 w-4 cursor-pointer" />
+							</div>
+						</div>
+					</div>
+				{/each}
+			</div>
+			<p>Remaining skills: {remainingSkills}</p>
+		</div>
 	</div>
 	<div class="my-4" />
 
@@ -56,9 +115,17 @@
 	<div>
 		<Label>Years of Experience</Label>
 		<div class="my-4" />
-		<Input />
+		<Input name="yoe" />
 	</div>
 
 	<div class="my-4" />
+	<input type="hidden" name="skills" bind:value={formBadges} />
+
 	<Button type="submit">Submit</Button>
 </form>
+
+<style>
+	.badge-container {
+		position: relative;
+	}
+</style>

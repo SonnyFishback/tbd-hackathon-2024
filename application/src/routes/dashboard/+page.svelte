@@ -55,15 +55,15 @@
 						<Separator class="mb-8" />
 						<div class="flex flex-col space-y-2">
 							<RadioGroup.Root value="comfortable">
-								<div class="mb-8 flex items-center space-x-2">
+								<div class="mb-6 flex items-center space-x-2">
 									<RadioGroup.Item value="default" id="r1" />
 									<Label for="r1">This is just an answer, okay!</Label>
 								</div>
-								<div class="mb-8 flex items-center space-x-2">
+								<div class="mb-6 flex items-center space-x-2">
 									<RadioGroup.Item value="comfortable" id="r2" />
 									<Label for="r2">This is just an answer, okay!</Label>
 								</div>
-								<div class="mb-8 flex items-center space-x-2">
+								<div class="mb-6 flex items-center space-x-2">
 									<RadioGroup.Item value="compact" id="r3" />
 									<Label for="r3">This is just an answer, okay!</Label>
 								</div>
@@ -72,6 +72,7 @@
 						</div>
 					</div>
 				</Card.Content>
+				<Separator class="mb-8" />
 				<Card.Footer class="flex justify-end gap-2">
 					<Button variant="outline">Previous</Button>
 					<Button>Next</Button>

@@ -1,6 +1,8 @@
 import type { PageServerLoad } from './$types';
 import OpenAI from 'openai';
 import { PRIVATE_OPENAI_API_KEY } from '$env/static/private';
+import { error, fail, redirect } from '@sveltejs/kit';
+import { prisma } from '$lib/server/prisma';
 
 const openai = new OpenAI({ apiKey: PRIVATE_OPENAI_API_KEY });
 
@@ -9,32 +11,99 @@ export const load = (async () => {
 }) satisfies PageServerLoad;
 
 export const actions = {
-	generate: async ({ request }) => {
-		try {
+	generate: async ({ request, locals }) => {
+			const session = await locals.getSession();
+
+			// if (!session || !session.user) {
+			// 	console.error('No session or user');
+			// 	return redirect(303, '/');
+			// }
+
 			const form = await request.formData();
 			const description = form.get('description')?.toString() || '';
 
-			const questions = await generateQuestions(description);
-			console.info(questions);
+			const questions = await generateQuestions(description)
+			const interview = await prisma.interview.create({
+				data: {
+					owner: { connect: { id: '17863e34-bd68-4cdf-a5d1-8ccb47d1085f' } }
+				}
+			});
 
+
+			for (const question of questions) {
+				const createdQuestion = await prisma.question.create({
+					data: {
+						interview: { connect: { id: interview.id } },
+						text: question.question,
+					}
+				})
+
+				const correctAnswer = await prisma.answerChoice.create(
+					{
+						data: {
+							question: { connect: { id: createdQuestion.id } },
+							text: question.correct,
+							isCorrect: true
+						}
+					}
+				);
+
+				for (const incorrect of question.incorrect) {
+					const incorrectAnswer = await prisma.answerChoice.create(
+						{
+							data: {
+								question: { connect: { id: createdQuestion.id } },
+								text: incorrect,
+								isCorrect: false
+							}
+						}
+					);
+				}
+
+			};
+			console.log(interview, 'created interview');
+
+			return redirect(303, `/dashboard/${interview.id}`);
 			return {
 				questions
 			};
-		} catch (error) {
-			return {};
-		}
+
 	}
 };
 
-const generateQuestions = async (jobDescription: string) => {
+const generateQuestions = async (
+	jobDescription: string,
+	focusAreas: string = "",
+	experienceLevel: string = "",
+	yearsOfExperience: string = "",
+	questionCount: number = 10
+) => {
 	try {
 		const completion = await openai.chat.completions.create({
 			model: 'gpt-3.5-turbo-1106',
 			messages: [
 				{
 					role: 'system',
-					content:
-						'Please generate me some practice technical interview questions based on the following job description. Please ensure each question is its owm separate index in a json array. Ensure that the name of the array is questions.'
+					content: `
+                    AI Interview Assistant: Generate ${questionCount || 10} tailored interview questions in multiple-choice format.
+                
+                    Job Description: ${jobDescription || 'default job description'}
+                    Focus Areas: ${focusAreas || 'default focus areas'}
+                    Experience Level: ${experienceLevel || 'default experience level'}
+                    Years of Experience: ${yearsOfExperience || 'default years of experience'}
+                
+                    Provide questions with two incorrect options and one correct option in a JSON format:
+                
+                    {
+                        "questions": [
+                            {
+                                "question": "Example Question",
+                                "incorrect": ["Option 1", "Option 2"],
+                                "correct": "Option 3"
+                            }
+                        ]
+                    }
+                `
 				},
 				{
 					role: 'system',

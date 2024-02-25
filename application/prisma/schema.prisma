@@ -5,7 +5,7 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider        = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -15,18 +15,47 @@ datasource db {
 }
 
 model User {
-  id          String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  username    String                @unique
-  email       String                @unique
-  password    String
-  avatar      String
-  name        String
+  id         String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  username   String      @unique
+  email      String      @unique
+  password   String
+  avatar     String
+  name       String
   // invitations Invitation[]
-  submissions InterviewSubmission[]
-  interviews  Interview[]
-  xp          Int                   @default(0)
+  // submissions InterviewSubmission[]
+  interviews Interview[]
+  xp         Int         @default(0)
   // badges String[]
   // accomplishments String[]
+}
+
+model Interview {
+  id        String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  owner     User              @relation(fields: [ownerID], references: [id])
+  ownerID   String            @db.Uuid
+  questions Question[]
+  answers   InterviewAnswer[]
+}
+
+model InterviewAnswer {
+  id          Int       @id @default(autoincrement())
+  interview   Interview @relation(fields: [interviewId], references: [id])
+  interviewId String    @db.Uuid
+  answer      String // this should be a answer choice. got stuck. need to move on. sorry. it's 4am. Literally.
+}
+
+model Question {
+  id          String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  interview   Interview      @relation(fields: [interviewID], references: [id])
+  interviewID String         @db.Uuid
+  asnwers     AnswerChoice[]
+}
+
+model AnswerChoice {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  question   Question @relation(fields: [questionID], references: [id])
+  questionID String   @db.Uuid
+  isCorrect  Boolean  @default(false)
 }
 
 model Level {
@@ -35,55 +64,3 @@ model Level {
   picture     String
   name        String
 }
-
-model Interview {
-  id          String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  questions   Question[]
-  submissions InterviewSubmission[]
-  owner       User                  @relation(fields: [ownerID], references: [id])
-  ownerID     String                @db.Uuid
-
-}
-
-model Question {
-  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  type        String
-  interview   Interview @relation(fields: [interviewID], references: [id])
-  interviewID String    @db.Uuid
-  asnwers     Answer[]
-}
-
-model Answer {
-  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  question   Question @relation(fields: [questionID], references: [id])
-  questionID String   @db.Uuid
-  text       String
-
-}
-
-model InterviewSubmission {
-  id            String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  interviewee   User      @relation(fields: [intervieweeID], references: [id])
-  intervieweeID String    @db.Uuid
-  interview     Interview @relation(fields: [interviewID], references: [id])
-  interviewID   String    @db.Uuid
-  answers       String[]
-  // results String
-}
-
-// model Invitation {
-//   id String @id @db.Uuid @default(dbgenerated("gen_random_uuid()"))
-//   sender User @relation(fields: [senderID], references: [id])
-//   senderID String
-//   recipiants String[] // this should link to the user id.
-//   recipiantID String
-//   interview Interview @relation(fields: [interviewID], references: [id])
-//   interviewID String
-// }
-
-// enum Role {
-//   USER
-//   ADMIN
-//   INTERVIEWER
-//   INTERVIEWEE
-// }

@@ -40,14 +40,14 @@
 		<Separator class="mb-8" />
 		<Card.Content>
 			{#each questions as question (question.id)}
-				<fieldset>
+				<fieldset class="mb-6">
 					<legend class="text-xl font-semibold tracking-tight">
 						{question.text}
 					</legend>
 					<Separator class="mb-8" />
-					<div class="flex flex-col space-y-2">
+					<div class="flex flex-col space-y-2 gap-2">
 							{#each question.answers as answer (answer.id)}
-								<div class="mb-6 flex items-center space-x-2">
+								<div class="flex items-center space-x-2">
                                     <input type="radio" name={question.id} id={answer.id} value={answer.id}/>
 									<Label for={answer.id}>{answer.text}</Label>
 								</div>

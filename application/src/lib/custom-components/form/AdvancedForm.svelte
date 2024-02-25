@@ -9,6 +9,7 @@
 	import { XCircle } from 'lucide-svelte';
 	import { createEventDispatcher } from 'svelte';
 	import { enhance } from '$app/forms';
+	import { Reload } from 'svelte-radix';
 
 	const dispatch = createEventDispatcher();
 
@@ -46,10 +47,23 @@
 	$: {
 		formBadges = badges.join(',');
 	}
+	let loading = false;
 </script>
 
 <div class="my-4" />
-<form method="POST" action="/interviews?/generate" use:enhance>
+<form
+	method="POST"
+	action="/interviews?/generate"
+	use:enhance={() => {
+		loading = true;
+		return async ({ result, update }) => {
+			loading = false;
+			update();
+			// `result` is an `ActionResult` object
+			// `update` is a function which triggers the default logic that would be triggered if this callback wasn't set
+		};
+	}}
+>
 	<div>
 		<Label>Job Description</Label>
 		<div class="my-4" />
@@ -90,7 +104,7 @@
 			on:keydown={handleInputKeyDown}
 			disabled={remainingSkills === 0}
 		/>
-		<p class="text-sm text-muted-foreground">
+		<p class="text-muted-foreground text-sm">
 			Click Enter each time you add a badge or just separate them with commas
 		</p>
 		<div class="flex flex-wrap justify-between">
@@ -121,7 +135,12 @@
 	<div class="my-4" />
 	<input type="hidden" name="skills" bind:value={formBadges} />
 
-	<Button type="submit">Submit</Button>
+	<Button type="submit" disabled={loading} class="mr-2 mt-8">
+		{#if loading}
+			<Reload class="mr-2 h-4 w-4 animate-spin" />
+		{/if}
+		Start now</Button
+	>
 </form>
 
 <style>

@@ -38,10 +38,11 @@ model Interview {
 }
 
 model InterviewAnswer {
-  id          Int       @id @default(autoincrement())
-  interview   Interview @relation(fields: [interviewId], references: [id])
-  interviewId String    @db.Uuid
-  answer      String // this should be a answer choice. got stuck. need to move on. sorry. it's 4am. Literally.
+  id          String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  interview   Interview    @relation(fields: [interviewId], references: [id])
+  interviewId String       @db.Uuid
+  answer      AnswerChoice @relation(fields: [answerId], references: [id])
+  answerId    String       @db.Uuid // this should be a answer choice. got stuck. need to move on. sorry. it's 4am. Literally.
 }
 
 model Question {
@@ -53,11 +54,12 @@ model Question {
 }
 
 model AnswerChoice {
-  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  question   Question @relation(fields: [questionID], references: [id])
-  questionID String   @db.Uuid
-  text    String
-  isCorrect  Boolean  @default(false)
+  id               String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  question         Question          @relation(fields: [questionID], references: [id])
+  questionID       String            @db.Uuid
+  text             String
+  isCorrect        Boolean           @default(false)
+  interviewAnswers InterviewAnswer[]
 }
 
 model Level {

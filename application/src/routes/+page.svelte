@@ -14,8 +14,7 @@
 		<section
 			class="mx-auto flex max-w-[980px] flex-col items-center gap-2 py-8 pb-8 md:py-12 md:pb-8 lg:py-12 lg:pb-20"
 		>
-			<a href="/" class="inline-flex items-center rounded-lg bg-muted px-3 py-1 text-sm font-medium"
-				>
+
 				{#if  data.interviewCount > 0}
 				🔺 <div
 					role="none"
@@ -33,8 +32,6 @@
 				{:else}
 				<span data-svelte-h="svelte-1puani1" style="font-weight: bold">Be the first to take on our interview challanges!</span>
 				{/if}
-			
-			</a>
 			<h1
 				class="main-title mt-6 text-center text-3xl font-bold leading-tight tracking-tighter md:text-6xl lg:leading-[1.1]"
 			>

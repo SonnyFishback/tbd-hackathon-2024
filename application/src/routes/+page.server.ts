@@ -1,7 +1,11 @@
 import type { PageServerLoad } from './$types';
 import { prisma } from '$lib/server/prisma';
 
-
 export const load = (async () => {
-    return { interviewCount: 100 };
+
+    const interviewCount = await prisma.interview.count()
+    return {
+
+        interviewCount
+    };
 }) satisfies PageServerLoad;

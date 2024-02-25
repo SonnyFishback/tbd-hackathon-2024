@@ -33,14 +33,14 @@
 					<nav class="w-full">
 						<ul class=" list-none">
 							{#each items as item, index (index)}
-								<li >
+								<li>
 									<a
 										href={item.href}
 										class={cn(
 											'group flex w-full items-center rounded-md border border-transparent px-2 py-1 hover:underline',
 											item.disabled && 'cursor-not-allowed opacity-60',
 											$page.url.pathname === item.href
-												? 'text-foreground font-medium'
+												? 'font-medium text-foreground'
 												: 'text-muted-foreground'
 										)}
 										aria-current={$page.url.pathname === item.href ? 'page' : undefined}

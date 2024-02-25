@@ -5,7 +5,6 @@
 	export let data: PageData;
 </script>
 
-
 <section>
 	<h1 class="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
 		Welcome Back
@@ -13,7 +12,7 @@
 		{data.user.user_metadata.family_name}!
 	</h1>
 
-<!-- 	<div class=" grid">
+	<!-- 	<div class=" grid">
 		<Avatar>
 			{#if data.user?.user_metadata.picture}
 				<Image src={data.user.user_metadata.picture} alt="Profile Picture"></Image>

@@ -1,7 +1,7 @@
 # Getting started:
-Not much to get started on code wise. You can help sure up feature stories and planning though! 🆘
 
----
+Will update documentation soon
+
 ## Learning Resources:
 
 #### 1. [Introduction to Supabase](https://www.youtube.com/watch?v=dU7GwCOgvNY)

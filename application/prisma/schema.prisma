@@ -1,0 +1,15 @@
+// Prisma Schema Documentation: https://www.prisma.io/docs/orm/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  username String @unique
+}

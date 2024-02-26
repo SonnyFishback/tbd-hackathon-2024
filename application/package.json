@@ -12,7 +12,8 @@
 		"format": "prettier --write .",
 		"postinstall": "prisma generate",
 		"generate-pwa-assets": "pwa-assets-generator --preset minimal-2023 static/logo.svg",
-		"seed": "vite-node ./prisma/seed.js"
+		"db:stop": "pnpx supabase stop",
+		"db:start": "pnpx supabase start"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^3.1.1",
